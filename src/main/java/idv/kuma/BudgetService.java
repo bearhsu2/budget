@@ -5,6 +5,8 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 /**
  * Hello world!
  */
@@ -19,6 +21,8 @@ public class BudgetService {
 
     public double query(LocalDate start, LocalDate end) {
 
+        if (end.isBefore(start)) return 0;
+
         List<Budget> budgets = budgetRepo.getAll();
 
         double sum = 0D;
@@ -31,10 +35,41 @@ public class BudgetService {
             YearMonth startYearMonth = YearMonth.from(start);
             YearMonth endYearMonth = YearMonth.from(end);
 
-            if (isEqualOrAfter(budgetYearMonth, startYearMonth)
-                    && isEqualOrBefore(budgetYearMonth, endYearMonth)) {
+
+            if (startYearMonth.isBefore(budgetYearMonth) && endYearMonth.isAfter(budgetYearMonth)) {
                 sum += budget.getAmount();
+
+            } else if (startYearMonth.equals(budgetYearMonth) && endYearMonth.equals(budgetYearMonth)) {
+                long days = DAYS.between(start, end) + 1;
+
+                int total = budgetYearMonth.lengthOfMonth();
+
+                sum += budget.getAmount() * days / total;
+
+
+            } else if (startYearMonth.isBefore(budgetYearMonth) && endYearMonth.equals(budgetYearMonth)) {
+
+                long days = DAYS.between(budgetYearMonth.atDay(1), end) + 1;
+                int total = budgetYearMonth.lengthOfMonth();
+
+                sum += budget.getAmount() * days / total;
+
+
+            } else {
+//                startYearMonth.equals(budgetYearMonth) && endYearMonth.isAfter(budgetYearMonth)
+
+                long days = DAYS.between(start, budgetYearMonth.atEndOfMonth()) + 1;
+                int total = budgetYearMonth.lengthOfMonth();
+
+                sum += budget.getAmount() * days / total;
+
             }
+
+//
+//            if (isEqualOrAfter(budgetYearMonth, startYearMonth)
+//                    && isEqualOrBefore(budgetYearMonth, endYearMonth)) {
+//                sum += budget.getAmount();
+//            }
 
         }
 

@@ -103,6 +103,17 @@ public class BudgetServiceTest {
                 makeLocalDate(2019, 1, 1));
     }
 
+    @Test
+    public void When_Single_Day_Then_One_Day_Partial() {
+
+        prepareRepo(createBudget("201901", 3100));
+
+
+        check(100,
+                makeLocalDate(2019, 1, 1),
+                makeLocalDate(2019, 1, 1));
+    }
+
     private LocalDate makeLocalDate(int year, int month, int day) {
         return LocalDate.of(year, month, day);
     }
