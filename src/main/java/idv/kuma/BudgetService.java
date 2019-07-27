@@ -37,7 +37,12 @@ public class BudgetService {
 
 
             if (startYearMonth.isBefore(budgetYearMonth) && endYearMonth.isAfter(budgetYearMonth)) {
-                sum += budget.getAmount();
+
+                long days = budgetYearMonth.lengthOfMonth();
+
+                int total = budgetYearMonth.lengthOfMonth();
+
+                sum += budget.getAmount() * days / total;
 
             } else if (startYearMonth.equals(budgetYearMonth) && endYearMonth.equals(budgetYearMonth)) {
                 long days = DAYS.between(start, end) + 1;
