@@ -36,35 +36,27 @@ public class BudgetService {
             YearMonth endYearMonth = YearMonth.from(end);
 
 
-            long days = 0;
-            long total = 0;
+            long days = 0L;
+            long total = 0L;
 
             if (startYearMonth.isBefore(budgetYearMonth) && endYearMonth.isAfter(budgetYearMonth)) {
-
                 days = budgetYearMonth.lengthOfMonth();
-
                 total = budgetYearMonth.lengthOfMonth();
-
 
             } else if (startYearMonth.equals(budgetYearMonth) && endYearMonth.equals(budgetYearMonth)) {
                 days = DAYS.between(start, end) + 1;
-
                 total = budgetYearMonth.lengthOfMonth();
-
 
             } else if (startYearMonth.isBefore(budgetYearMonth) && endYearMonth.equals(budgetYearMonth)) {
 
                 days = DAYS.between(budgetYearMonth.atDay(1), end) + 1;
                 total = budgetYearMonth.lengthOfMonth();
 
-
             } else { // startYearMonth.equals(budgetYearMonth) && endYearMonth.isAfter(budgetYearMonth)
                 days = DAYS.between(start, budgetYearMonth.atEndOfMonth()) + 1;
                 total = budgetYearMonth.lengthOfMonth();
 
-
             }
-
 
             sum += budget.getAmount() * days / total;
         }
@@ -74,18 +66,4 @@ public class BudgetService {
 
     }
 
-    private boolean isEqualOrAfter(YearMonth yearMonth, YearMonth another) {
-        return yearMonth.isAfter(another) || yearMonth.equals(another);
-    }
-
-    private boolean isEqualOrBefore(YearMonth yearMonth, YearMonth another) {
-        return yearMonth.isBefore(another) || yearMonth.equals(another);
-    }
-
-
-    private String dateToString(LocalDate start) {
-        String monthStr = String.format("%02d", start.getMonthValue());
-
-        return "" + start.getYear() + monthStr;
-    }
 }
