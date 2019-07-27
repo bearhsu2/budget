@@ -37,27 +37,23 @@ public class BudgetService {
 
 
             long days = 0L;
-            long total = 0L;
 
             if (budgetWrappedByStartEnd(budgetYearMonth, startYearMonth, endYearMonth)) {
                 days = budgetYearMonth.lengthOfMonth();
-                total = budgetYearMonth.lengthOfMonth();
 
             } else if (startEndBothThisMonth(budgetYearMonth, startYearMonth, endYearMonth)) {
                 days = DAYS.between(start, end) + 1;
-                total = budgetYearMonth.lengthOfMonth();
 
             } else if (onlyEndInThisMonth(budgetYearMonth, startYearMonth, endYearMonth)) {
 
                 days = DAYS.between(budgetYearMonth.atDay(1), end) + 1;
-                total = budgetYearMonth.lengthOfMonth();
 
             } else { // startYearMonth.equals(budgetYearMonth) && endYearMonth.isAfter(budgetYearMonth)
                 days = DAYS.between(start, budgetYearMonth.atEndOfMonth()) + 1;
-                total = budgetYearMonth.lengthOfMonth();
 
             }
 
+            int total = budgetYearMonth.lengthOfMonth();
             sum += budget.getAmount() * days / total;
         }
 
