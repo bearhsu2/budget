@@ -29,11 +29,14 @@ public class BudgetServiceTest {
         BudgetService budgetService = new BudgetService(mockedRepo);
 
 
-        LocalDate start = LocalDate.of(2019, 1, 1);
-        LocalDate end = LocalDate.of(2019, 1, 31);
+        Assert.assertEquals(3100,
+                budgetService.query(
+                        givenLocalDate(2019, 1, 1),
+                        givenLocalDate(2019, 1, 31)), 0.001);
+    }
 
-
-        Assert.assertEquals(3100, budgetService.query(start, end), 0.001);
+    private LocalDate givenLocalDate(int year, int month, int day) {
+        return LocalDate.of(year, month, day);
     }
 
 
