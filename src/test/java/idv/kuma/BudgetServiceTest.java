@@ -1,20 +1,21 @@
 package idv.kuma;
 
-import static org.junit.Assert.assertTrue;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
  * Unit test for simple App.
  */
-public class BudgetServiceTest
-{
-    /**
-     * Rigorous Test :-)
-     */
+
+
+public class BudgetServiceTest {
+
     @Test
-    public void shouldAnswerWithTrue()
-    {
-        assertTrue( true );
+    public void shouldAnswerWithTrue() {
+
+
+        BudgetService budgetService = new BudgetService(null);
+
+        Assert.assertEquals(1, 1);
     }
 }
