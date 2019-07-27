@@ -33,13 +33,8 @@ public class BudgetService {
             YearMonth budgetYearMonth = YearMonth.parse(budget.getYearMonth(), formatter);
             YearMonth startYearMonth = YearMonth.from(start);
             YearMonth endYearMonth = YearMonth.from(end);
-            
-            long days = 0L;
 
-            days = getDays(start, end, budgetYearMonth, startYearMonth, endYearMonth);
-
-            int total = budgetYearMonth.lengthOfMonth();
-            sum += budget.getAmount() * days / total;
+            sum += budget.getAmount() * getDays(start, end, budgetYearMonth, startYearMonth, endYearMonth) / budgetYearMonth.lengthOfMonth();
         }
 
 
