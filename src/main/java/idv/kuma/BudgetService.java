@@ -31,8 +31,8 @@ public class BudgetService {
             YearMonth startYearMonth = YearMonth.from(start);
             YearMonth endYearMonth = YearMonth.from(end);
 
-            if ((budgetYearMonth.isAfter(startYearMonth) || budgetYearMonth.equals(startYearMonth))
-                    && (budgetYearMonth.isBefore(endYearMonth) ||  budgetYearMonth.equals(endYearMonth))) {
+            if (isEqualOrAfter(budgetYearMonth, startYearMonth)
+                    && isEqualOrBefore(budgetYearMonth, endYearMonth)) {
                 sum += budget.getAmount();
             }
 
@@ -42,6 +42,15 @@ public class BudgetService {
         return sum;
 
     }
+
+    private boolean isEqualOrAfter(YearMonth yearMonth, YearMonth another) {
+        return yearMonth.isAfter(another) || yearMonth.equals(another);
+    }
+
+    private boolean isEqualOrBefore(YearMonth yearMonth, YearMonth another) {
+        return yearMonth.isBefore(another) || yearMonth.equals(another);
+    }
+
 
     private String dateToString(LocalDate start) {
         String monthStr = String.format("%02d", start.getMonthValue());
