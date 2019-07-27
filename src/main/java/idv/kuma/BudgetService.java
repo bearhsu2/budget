@@ -12,7 +12,7 @@ import static java.time.temporal.ChronoUnit.DAYS;
  */
 public class BudgetService {
     private static
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuuMM");;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuuMM");
 
     private BudgetRepo budgetRepo;
 
@@ -30,16 +30,22 @@ public class BudgetService {
 
         for (Budget budget : budgets) {
 
-            YearMonth budgetYearMonth = YearMonth.parse(budget.getYearMonth(), formatter);
-            YearMonth startYearMonth = YearMonth.from(start);
-            YearMonth endYearMonth = YearMonth.from(end);
+            sum += calculateAmount(budget, start, end);
 
-            sum += budget.getAmount() * getDays(start, end, budgetYearMonth, startYearMonth, endYearMonth) / budgetYearMonth.lengthOfMonth();
         }
 
 
         return sum;
 
+    }
+
+    private long calculateAmount(Budget budget, LocalDate start, LocalDate end) {
+
+        YearMonth budgetYearMonth = YearMonth.parse(budget.getYearMonth(), formatter);
+        YearMonth startYearMonth = YearMonth.from(start);
+        YearMonth endYearMonth = YearMonth.from(end);
+
+        return budget.getAmount() * getDays(start, end, budgetYearMonth, startYearMonth, endYearMonth) / budgetYearMonth.lengthOfMonth();
     }
 
     private long getDays(LocalDate start, LocalDate end, YearMonth budgetYearMonth, YearMonth startYearMonth, YearMonth endYearMonth) {
