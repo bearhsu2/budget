@@ -39,15 +39,15 @@ public class BudgetService {
             long days = 0L;
             long total = 0L;
 
-            if (startYearMonth.isBefore(budgetYearMonth) && endYearMonth.isAfter(budgetYearMonth)) {
+            if (budgetWrappedByStartEnd(budgetYearMonth, startYearMonth, endYearMonth)) {
                 days = budgetYearMonth.lengthOfMonth();
                 total = budgetYearMonth.lengthOfMonth();
 
-            } else if (startYearMonth.equals(budgetYearMonth) && endYearMonth.equals(budgetYearMonth)) {
+            } else if (startEndBothThisMonth(budgetYearMonth, startYearMonth, endYearMonth)) {
                 days = DAYS.between(start, end) + 1;
                 total = budgetYearMonth.lengthOfMonth();
 
-            } else if (startYearMonth.isBefore(budgetYearMonth) && endYearMonth.equals(budgetYearMonth)) {
+            } else if (onlyEndInThisMonth(budgetYearMonth, startYearMonth, endYearMonth)) {
 
                 days = DAYS.between(budgetYearMonth.atDay(1), end) + 1;
                 total = budgetYearMonth.lengthOfMonth();
@@ -64,6 +64,18 @@ public class BudgetService {
 
         return sum;
 
+    }
+
+    private boolean onlyEndInThisMonth(YearMonth budgetYearMonth, YearMonth startYearMonth, YearMonth endYearMonth) {
+        return startYearMonth.isBefore(budgetYearMonth) && endYearMonth.equals(budgetYearMonth);
+    }
+
+    private boolean startEndBothThisMonth(YearMonth budgetYearMonth, YearMonth startYearMonth, YearMonth endYearMonth) {
+        return startYearMonth.equals(budgetYearMonth) && endYearMonth.equals(budgetYearMonth);
+    }
+
+    private boolean budgetWrappedByStartEnd(YearMonth budgetYearMonth, YearMonth startYearMonth, YearMonth endYearMonth) {
+        return startYearMonth.isBefore(budgetYearMonth) && endYearMonth.isAfter(budgetYearMonth);
     }
 
 }
