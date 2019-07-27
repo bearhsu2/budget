@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 public class BudgetServiceTest {
 
     @Test
-    public void shouldAnswerWithTrue() {
+    public void When_Single_Whole_Month_Then_Whole_Month() {
 
         BudgetRepo mockedRepo = mock(BudgetRepo.class);
 
