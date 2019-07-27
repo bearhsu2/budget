@@ -36,20 +36,7 @@ public class BudgetService {
             
             long days = 0L;
 
-            if (budgetWrappedByStartEnd(budgetYearMonth, startYearMonth, endYearMonth)) {
-                days = budgetYearMonth.lengthOfMonth();
-
-            } else if (startEndBothThisMonth(budgetYearMonth, startYearMonth, endYearMonth)) {
-                days = DAYS.between(start, end) + 1;
-
-            } else if (onlyEndInThisMonth(budgetYearMonth, startYearMonth, endYearMonth)) {
-
-                days = DAYS.between(budgetYearMonth.atDay(1), end) + 1;
-
-            } else { // startYearMonth.equals(budgetYearMonth) && endYearMonth.isAfter(budgetYearMonth)
-                days = DAYS.between(start, budgetYearMonth.atEndOfMonth()) + 1;
-
-            }
+            days = getDays(start, end, budgetYearMonth, startYearMonth, endYearMonth);
 
             int total = budgetYearMonth.lengthOfMonth();
             sum += budget.getAmount() * days / total;
@@ -58,6 +45,24 @@ public class BudgetService {
 
         return sum;
 
+    }
+
+    private long getDays(LocalDate start, LocalDate end, YearMonth budgetYearMonth, YearMonth startYearMonth, YearMonth endYearMonth) {
+        long days;
+        if (budgetWrappedByStartEnd(budgetYearMonth, startYearMonth, endYearMonth)) {
+            days = budgetYearMonth.lengthOfMonth();
+        } else if (startEndBothThisMonth(budgetYearMonth, startYearMonth, endYearMonth)) {
+            days = DAYS.between(start, end) + 1;
+
+        } else if (onlyEndInThisMonth(budgetYearMonth, startYearMonth, endYearMonth)) {
+
+            days = DAYS.between(budgetYearMonth.atDay(1), end) + 1;
+
+        } else { // startYearMonth.equals(budgetYearMonth) && endYearMonth.isAfter(budgetYearMonth)
+            days = DAYS.between(start, budgetYearMonth.atEndOfMonth()) + 1;
+
+        }
+        return days;
     }
 
     private boolean onlyEndInThisMonth(YearMonth budgetYearMonth, YearMonth startYearMonth, YearMonth endYearMonth) {
