@@ -11,9 +11,10 @@ import static java.time.temporal.ChronoUnit.DAYS;
  * Hello world!
  */
 public class BudgetService {
+    private static
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuuMM");;
 
-    BudgetRepo budgetRepo;
-    private DateTimeFormatter formatter;
+    private BudgetRepo budgetRepo;
 
     public BudgetService(BudgetRepo budgetRepo) {
         this.budgetRepo = budgetRepo;
@@ -29,13 +30,10 @@ public class BudgetService {
 
         for (Budget budget : budgets) {
 
-            formatter = DateTimeFormatter.ofPattern("uuuuMM");
             YearMonth budgetYearMonth = YearMonth.parse(budget.getYearMonth(), formatter);
-
             YearMonth startYearMonth = YearMonth.from(start);
             YearMonth endYearMonth = YearMonth.from(end);
-
-
+            
             long days = 0L;
 
             if (budgetWrappedByStartEnd(budgetYearMonth, startYearMonth, endYearMonth)) {
