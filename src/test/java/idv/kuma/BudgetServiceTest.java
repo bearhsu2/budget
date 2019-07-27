@@ -77,6 +77,20 @@ public class BudgetServiceTest {
                 makeLocalDate(2019, 2, 28));
     }
 
+
+    @Test
+    public void When_Three_Whole_Months_Then_Sum() {
+
+        prepareRepo(createBudget("201901", 3100),
+                createBudget("201902", 2800),
+                createBudget("201903", 3100));
+
+
+        check(9000,
+                makeLocalDate(2019, 1, 1),
+                makeLocalDate(2019, 3, 31));
+    }
+
     private LocalDate makeLocalDate(int year, int month, int day) {
         return LocalDate.of(year, month, day);
     }

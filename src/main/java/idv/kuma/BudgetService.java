@@ -31,7 +31,8 @@ public class BudgetService {
             YearMonth startYearMonth = YearMonth.from(start);
             YearMonth endYearMonth = YearMonth.from(end);
 
-            if (budgetYearMonth.equals(startYearMonth) || budgetYearMonth.equals(endYearMonth)) {
+            if ((budgetYearMonth.isAfter(startYearMonth) || budgetYearMonth.equals(startYearMonth))
+                    && (budgetYearMonth.isBefore(endYearMonth) ||  budgetYearMonth.equals(endYearMonth))) {
                 sum += budget.getAmount();
             }
 
