@@ -91,6 +91,18 @@ public class BudgetServiceTest {
                 makeLocalDate(2019, 3, 31));
     }
 
+    @Test
+    public void When_Invalid_Input_Then_0() {
+
+        prepareRepo(createBudget("201901", 3100),
+                createBudget("201902", 2800));
+
+
+        check(0,
+                makeLocalDate(2019, 2, 28),
+                makeLocalDate(2019, 1, 1));
+    }
+
     private LocalDate makeLocalDate(int year, int month, int day) {
         return LocalDate.of(year, month, day);
     }
