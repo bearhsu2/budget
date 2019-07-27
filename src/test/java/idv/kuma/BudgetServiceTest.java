@@ -18,10 +18,12 @@ import static org.mockito.Mockito.when;
 public class BudgetServiceTest {
 
     private BudgetRepo mockedRepo;
+    private BudgetService budgetService;
 
     @Before
     public void setUp() throws Exception {
         mockedRepo = mock(BudgetRepo.class);
+        budgetService = new BudgetService(mockedRepo);
     }
 
     @Test
@@ -30,13 +32,15 @@ public class BudgetServiceTest {
         prepareRepo(createBudget("201901", 3100));
 
 
-        BudgetService budgetService = new BudgetService(mockedRepo);
+        check(3100,
+                makeLocalDate(2019, 1, 1),
+                makeLocalDate(2019, 1, 31));
 
 
-        Assert.assertEquals(3100,
-                budgetService.query(
-                        givenLocalDate(2019, 1, 1),
-                        givenLocalDate(2019, 1, 31)), 0.001);
+    }
+
+    private void check(double expected, LocalDate start, LocalDate end) {
+        Assert.assertEquals(expected, budgetService.query(start, end), 0.001);
     }
 
     private void prepareRepo(Budget... budgets) {
@@ -56,13 +60,9 @@ public class BudgetServiceTest {
                 createBudget("201902", 2800));
 
 
-        BudgetService budgetService = new BudgetService(mockedRepo);
-
-
-        Assert.assertEquals(2800,
-                budgetService.query(
-                        givenLocalDate(2019, 2, 1),
-                        givenLocalDate(2019, 2, 28)), 0.001);
+        check(2800,
+                makeLocalDate(2019, 2, 1),
+                makeLocalDate(2019, 2, 28));
     }
 
     @Test
@@ -72,16 +72,12 @@ public class BudgetServiceTest {
                 createBudget("201902", 2800));
 
 
-        BudgetService budgetService = new BudgetService(mockedRepo);
-
-
-        Assert.assertEquals(5900,
-                budgetService.query(
-                        givenLocalDate(2019, 1, 1),
-                        givenLocalDate(2019, 2, 28)), 0.001);
+        check(5900,
+                makeLocalDate(2019, 1, 1),
+                makeLocalDate(2019, 2, 28));
     }
 
-    private LocalDate givenLocalDate(int year, int month, int day) {
+    private LocalDate makeLocalDate(int year, int month, int day) {
         return LocalDate.of(year, month, day);
     }
 
