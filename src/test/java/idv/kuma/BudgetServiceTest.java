@@ -114,6 +114,19 @@ public class BudgetServiceTest {
                 makeLocalDate(2019, 1, 1));
     }
 
+
+    @Test
+    public void When_Partial_Partial_Then_Sum() {
+
+        prepareRepo(createBudget("201901", 3100),
+                createBudget("201902", 2800));
+
+
+        check(200,
+                makeLocalDate(2019, 1, 31),
+                makeLocalDate(2019, 2, 1));
+    }
+
     private LocalDate makeLocalDate(int year, int month, int day) {
         return LocalDate.of(year, month, day);
     }
