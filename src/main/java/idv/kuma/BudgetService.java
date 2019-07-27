@@ -22,16 +22,16 @@ public class BudgetService {
         List<Budget> budgets = budgetRepo.getAll();
 
         double sum = 0D;
-        for (Budget budget : budgets) {
 
-            YearMonth startYearMonth = YearMonth.from(start);
-            YearMonth endYearMonth = YearMonth.from(end);
+        for (Budget budget : budgets) {
 
             formatter = DateTimeFormatter.ofPattern("uuuuMM");
             YearMonth budgetYearMonth = YearMonth.parse(budget.getYearMonth(), formatter);
 
-            if (budgetYearMonth.equals(startYearMonth) ||
-                    budgetYearMonth.equals(endYearMonth)) {
+            YearMonth startYearMonth = YearMonth.from(start);
+            YearMonth endYearMonth = YearMonth.from(end);
+
+            if (budgetYearMonth.equals(startYearMonth) || budgetYearMonth.equals(endYearMonth)) {
                 sum += budget.getAmount();
             }
 

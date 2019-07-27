@@ -1,6 +1,7 @@
 package idv.kuma;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -16,14 +17,17 @@ import static org.mockito.Mockito.when;
 
 public class BudgetServiceTest {
 
+    private BudgetRepo mockedRepo;
+
+    @Before
+    public void setUp() throws Exception {
+        mockedRepo = mock(BudgetRepo.class);
+    }
+
     @Test
     public void When_Single_Whole_Month_Then_Whole_Jan() {
 
-        BudgetRepo mockedRepo = mock(BudgetRepo.class);
-
-        when(mockedRepo.getAll()).thenReturn(Arrays.asList(
-                new Budget("201901", 3100)
-        ));
+        prepareRepo(createBudget("201901", 3100));
 
 
         BudgetService budgetService = new BudgetService(mockedRepo);
@@ -35,15 +39,21 @@ public class BudgetServiceTest {
                         givenLocalDate(2019, 1, 31)), 0.001);
     }
 
+    private void prepareRepo(Budget... budgets) {
+        when(mockedRepo.getAll()).thenReturn(Arrays.asList(
+                budgets
+        ));
+    }
+
+    private Budget createBudget(String s, int i) {
+        return new Budget(s, i);
+    }
+
     @Test
     public void When_Single_Whole_Month_Then_Whole_Feb() {
 
-        BudgetRepo mockedRepo = mock(BudgetRepo.class);
-
-        when(mockedRepo.getAll()).thenReturn(Arrays.asList(
-                new Budget("201901", 3100),
-                new Budget("201902", 2800)
-        ));
+        prepareRepo(createBudget("201901", 3100),
+                createBudget("201902", 2800));
 
 
         BudgetService budgetService = new BudgetService(mockedRepo);
@@ -58,12 +68,8 @@ public class BudgetServiceTest {
     @Test
     public void When_Two_Whole_Months_Then_Sum() {
 
-        BudgetRepo mockedRepo = mock(BudgetRepo.class);
-
-        when(mockedRepo.getAll()).thenReturn(Arrays.asList(
-                new Budget("201901", 3100),
-                new Budget("201902", 2800)
-        ));
+        prepareRepo(createBudget("201901", 3100),
+                createBudget("201902", 2800));
 
 
         BudgetService budgetService = new BudgetService(mockedRepo);
