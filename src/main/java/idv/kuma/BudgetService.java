@@ -20,16 +20,23 @@ public class BudgetService {
 
         for (Budget budget : budgets) {
 
-            String monthStr = String.format("%02d", start.getMonthValue());
+            String dateString = dateToString(start);
 
-            if (budget.getYearMonth().equals("" + start.getYear() + monthStr)) {
+
+            if (budget.getYearMonth().equals(dateString)) {
                 return budget.getAmount();
             }
 
         }
 
 
-        return 3100;
+        return 0;
 
+    }
+
+    private String dateToString(LocalDate start) {
+        String monthStr = String.format("%02d", start.getMonthValue());
+
+        return "" + start.getYear() + monthStr;
     }
 }
