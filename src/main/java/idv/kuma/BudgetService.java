@@ -1,6 +1,8 @@
 package idv.kuma;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -9,6 +11,7 @@ import java.util.List;
 public class BudgetService {
 
     BudgetRepo budgetRepo;
+    private DateTimeFormatter formatter;
 
     public BudgetService(BudgetRepo budgetRepo) {
         this.budgetRepo = budgetRepo;
@@ -18,19 +21,24 @@ public class BudgetService {
 
         List<Budget> budgets = budgetRepo.getAll();
 
+        double sum = 0D;
         for (Budget budget : budgets) {
 
-            String dateString = dateToString(start);
+            YearMonth startYearMonth = YearMonth.from(start);
+            YearMonth endYearMonth = YearMonth.from(end);
 
+            formatter = DateTimeFormatter.ofPattern("uuuuMM");
+            YearMonth budgetYearMonth = YearMonth.parse(budget.getYearMonth(), formatter);
 
-            if (budget.getYearMonth().equals(dateString)) {
-                return budget.getAmount();
+            if (budgetYearMonth.equals(startYearMonth) ||
+                    budgetYearMonth.equals(endYearMonth)) {
+                sum += budget.getAmount();
             }
 
         }
 
 
-        return 0;
+        return sum;
 
     }
 

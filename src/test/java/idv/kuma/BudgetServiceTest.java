@@ -55,6 +55,26 @@ public class BudgetServiceTest {
                         givenLocalDate(2019, 2, 28)), 0.001);
     }
 
+    @Test
+    public void When_Two_Whole_Months_Then_Sum() {
+
+        BudgetRepo mockedRepo = mock(BudgetRepo.class);
+
+        when(mockedRepo.getAll()).thenReturn(Arrays.asList(
+                new Budget("201901", 3100),
+                new Budget("201902", 2800)
+        ));
+
+
+        BudgetService budgetService = new BudgetService(mockedRepo);
+
+
+        Assert.assertEquals(5900,
+                budgetService.query(
+                        givenLocalDate(2019, 1, 1),
+                        givenLocalDate(2019, 2, 28)), 0.001);
+    }
+
     private LocalDate givenLocalDate(int year, int month, int day) {
         return LocalDate.of(year, month, day);
     }
