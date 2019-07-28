@@ -34,10 +34,9 @@ public class BudgetServiceTest {
         when(budgetRepo.getAll()).thenReturn(Arrays.asList());
 
 
-        LocalDate start = LocalDate.of(2019, 4, 1);
-        LocalDate end = LocalDate.of(2019, 4, 1);
-
-        Assert.assertEquals(0, budgetService.query(start, end), 0.001);
+        runAndCheck(0,
+                LocalDate.of(2019, 4, 1),
+                LocalDate.of(2019, 4, 1));
     }
 
     @Test
@@ -45,11 +44,10 @@ public class BudgetServiceTest {
 
         when(budgetRepo.getAll()).thenReturn(Arrays.asList(new Budget("201904", 30)));
 
-        LocalDate start = LocalDate.of(2019, 4, 1);
-        LocalDate end = LocalDate.of(2019, 4, 1);
 
-
-        Assert.assertEquals(1, budgetService.query(start, end), 0.001);
+        runAndCheck(1,
+                LocalDate.of(2019, 4, 1),
+                LocalDate.of(2019, 4, 1));
     }
 
     @Test
@@ -57,11 +55,10 @@ public class BudgetServiceTest {
 
         when(budgetRepo.getAll()).thenReturn(Arrays.asList(new Budget("201904", 30)));
 
-        LocalDate start = LocalDate.of(2019, 3, 31);
-        LocalDate end = LocalDate.of(2019, 3, 31);
 
-
-        Assert.assertEquals(0, budgetService.query(start, end), 0.001);
+        runAndCheck(0,
+                LocalDate.of(2019, 3, 31),
+                LocalDate.of(2019, 3, 31));
     }
 
     @Test
@@ -69,11 +66,10 @@ public class BudgetServiceTest {
 
         when(budgetRepo.getAll()).thenReturn(Arrays.asList(new Budget("201904", 30)));
 
-        LocalDate start = LocalDate.of(2019, 5, 1);
-        LocalDate end = LocalDate.of(2019, 5, 1);
 
-
-        Assert.assertEquals(0, budgetService.query(start, end), 0.001);
+        runAndCheck(0,
+                LocalDate.of(2019, 5, 1),
+                LocalDate.of(2019, 5, 1));
 
     }
 
@@ -82,12 +78,15 @@ public class BudgetServiceTest {
 
         when(budgetRepo.getAll()).thenReturn(Arrays.asList(new Budget("201904", 30)));
 
-        LocalDate start = LocalDate.of(2019, 3, 31);
-        LocalDate end = LocalDate.of(2019, 4, 1);
+        runAndCheck(1,
+                LocalDate.of(2019, 3, 31),
+                LocalDate.of(2019, 4, 1));
 
+    }
 
-        Assert.assertEquals(1, budgetService.query(start, end), 0.001);
+    private void runAndCheck(int expected, LocalDate start, LocalDate end) {
 
+        Assert.assertEquals(expected, budgetService.query(start, end), 0.001);
     }
 
 }
