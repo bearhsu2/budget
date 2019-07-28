@@ -3,8 +3,6 @@ package idv.kuma;
 import java.time.LocalDate;
 import java.util.List;
 
-import static java.time.temporal.ChronoUnit.DAYS;
-
 /**
  * Hello world!
  */
@@ -19,14 +17,16 @@ public class BudgetService {
 
     public double query(LocalDate start, LocalDate end) {
 
+
         List<Budget> budgets = this.budgetRepo.getAll();
 
         if (budgets.size() == 0) {
             return 0;
         }
 
-        long days = DAYS.between(start, end) + 1;
+        long days = new Period(start, end).getDays();
         return days;
 
     }
+
 }
