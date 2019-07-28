@@ -32,7 +32,12 @@ public class BudgetService {
     }
 
     private long overlapDays(Period period, Budget budget) {
+        
         if (period.getEnd().isBefore(budget.getFirstDay())) {
+            return 0;
+        }
+
+        if (period.getStart().isAfter(budget.getLastDay())) {
             return 0;
         }
 
