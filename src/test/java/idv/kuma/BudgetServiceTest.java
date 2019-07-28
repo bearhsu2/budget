@@ -20,13 +20,9 @@ public class BudgetServiceTest {
     @Test
     public void No_Budgets() {
 
-
-
         LocalDate start = LocalDate.of(2019,4,1);
         LocalDate end = LocalDate.of(2019,4,1);
 
-        BudgetService budgetService = new BudgetService();
-        double totalAmount = budgetService.query(start,end);
-        Assert.assertEquals(0,totalAmount,0.001);
+        Assert.assertEquals(0, new BudgetService().query(start,end),0.001);
     }
 }
