@@ -16,6 +16,7 @@ public class BudgetService {
     }
 
     public double query(LocalDate start, LocalDate end) {
+        Period period = new Period(start, end);
 
 
         List<Budget> budgets = this.budgetRepo.getAll();
@@ -24,7 +25,7 @@ public class BudgetService {
             return 0;
         }
 
-        long days = new Period(start, end).getDays();
+        long days = period.getDays();
         return days;
 
     }
