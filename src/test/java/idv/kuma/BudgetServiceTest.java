@@ -74,6 +74,20 @@ public class BudgetServiceTest {
 
 
         Assert.assertEquals(0, budgetService.query(start, end), 0.001);
+
+    }
+
+    @Test
+    public void Period_Overlap_Budget_First_Day() {
+
+        when(budgetRepo.getAll()).thenReturn(Arrays.asList(new Budget("201904", 30)));
+
+        LocalDate start = LocalDate.of(2019, 3, 31);
+        LocalDate end = LocalDate.of(2019, 4, 1);
+
+
+        Assert.assertEquals(1, budgetService.query(start, end), 0.001);
+
     }
 
 }
