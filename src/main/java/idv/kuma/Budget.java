@@ -35,7 +35,7 @@ public class Budget {
         return yearMonth.atDay(1);
     }
 
-    public ChronoLocalDate getLastDay() {
+    public LocalDate getLastDay() {
         YearMonth yearMonth = YearMonth.parse(this.yearMonth, DateTimeFormatter.ofPattern("uuuuMM"));
         return yearMonth.atEndOfMonth();
 

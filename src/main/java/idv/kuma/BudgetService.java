@@ -43,7 +43,7 @@ public class BudgetService {
             return 0;
         }
 
-        LocalDate overlapStart = period.getEnd().isAfter(budget.getFirstDay())
+        LocalDate overlapStart = period.getStart().isBefore(budget.getFirstDay())
                 ? budget.getFirstDay()
                 : period.getEnd();
 
