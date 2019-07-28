@@ -31,19 +31,21 @@ public class BudgetServiceTest {
     @Test
     public void No_Budgets() {
 
-        when(budgetRepo.getAll()).thenReturn(Arrays.asList());
-
+        prepareBudgets();
 
         runAndCheck(0,
                 LocalDate.of(2019, 4, 1),
                 LocalDate.of(2019, 4, 1));
     }
 
+    private void prepareBudgets(Budget... budgets) {
+        when(budgetRepo.getAll()).thenReturn(Arrays.asList(budgets));
+    }
+
     @Test
     public void Period_Inside_Budget_Month() {
 
-        when(budgetRepo.getAll()).thenReturn(Arrays.asList(new Budget("201904", 30)));
-
+        prepareBudgets(new Budget("201904", 30));
 
         runAndCheck(1,
                 LocalDate.of(2019, 4, 1),
@@ -53,8 +55,7 @@ public class BudgetServiceTest {
     @Test
     public void Period_No_Overlap_Before_Budget_First_Day() {
 
-        when(budgetRepo.getAll()).thenReturn(Arrays.asList(new Budget("201904", 30)));
-
+        prepareBudgets(new Budget("201904", 30));
 
         runAndCheck(0,
                 LocalDate.of(2019, 3, 31),
@@ -64,19 +65,17 @@ public class BudgetServiceTest {
     @Test
     public void Period_No_Overlap_After_Budget_Last_Day() {
 
-        when(budgetRepo.getAll()).thenReturn(Arrays.asList(new Budget("201904", 30)));
-
+        prepareBudgets(new Budget("201904", 30));
 
         runAndCheck(0,
                 LocalDate.of(2019, 5, 1),
                 LocalDate.of(2019, 5, 1));
-
     }
 
     @Test
     public void Period_Overlap_Budget_First_Day() {
 
-        when(budgetRepo.getAll()).thenReturn(Arrays.asList(new Budget("201904", 30)));
+        prepareBudgets(new Budget("201904", 30));
 
         runAndCheck(1,
                 LocalDate.of(2019, 3, 31),
