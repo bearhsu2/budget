@@ -106,6 +106,18 @@ public class BudgetServiceTest {
 
     }
 
+
+    @Test
+    public void Daily_Budget_More_Than_1() {
+
+        prepareBudgets(new Budget("201904", 300));
+
+        runAndCheck(300,
+                LocalDate.of(2019, 3, 31),
+                LocalDate.of(2019, 5, 1));
+
+    }
+
     private void runAndCheck(int expected, LocalDate start, LocalDate end) {
 
         Assert.assertEquals(expected, budgetService.query(start, end), 0.001);

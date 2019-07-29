@@ -26,7 +26,11 @@ public class BudgetService {
         }
         Budget budget = budgets.get(0);
 
-        return period.overlapDays(budget.toPeriod());
+        long overlapDays = period.overlapDays(budget.toPeriod());
+
+        double dailyAmount = budget.getAmount() / budget.getNumberOfDays();
+
+        return overlapDays * dailyAmount;
 
     }
 
