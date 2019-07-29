@@ -28,14 +28,10 @@ public class BudgetService {
             return 0;
         }
 
-        double totalAmount = 0D;
-        for (Budget budget : budgets) {
-
-            totalAmount += budget.getTotalAmount(period);
-
-        }
-        return totalAmount;
-
+        return budgets
+                .stream()
+                .mapToDouble(budget -> budget.getTotalAmount(period))
+                .sum();
     }
 
 }
