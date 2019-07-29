@@ -24,4 +24,28 @@ public class Period {
     long getDays() {
         return DAYS.between(start, end) + 1;
     }
+
+    long overlapDays(Period another) {
+
+
+        if (end.isBefore(another.getStart())) {
+            return 0;
+        }
+
+        if (start.isAfter(another.getEnd())) {
+            return 0;
+        }
+
+        LocalDate overlapStart = start.isBefore(another.getStart())
+                ? another.getStart()
+                : start;
+
+
+        LocalDate overlapEnd = end.isAfter(another.getEnd())
+                ? another.getEnd()
+                : end;
+
+
+        return DAYS.between(overlapStart, overlapEnd) + 1;
+    }
 }

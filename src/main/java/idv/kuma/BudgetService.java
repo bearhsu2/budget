@@ -3,8 +3,6 @@ package idv.kuma;
 import java.time.LocalDate;
 import java.util.List;
 
-import static java.time.temporal.ChronoUnit.DAYS;
-
 /**
  * Hello world!
  */
@@ -27,33 +25,10 @@ public class BudgetService {
             return 0;
         }
         Budget budget = budgets.get(0);
-        long days = overlapDays(period,budget);
+        long days = period.overlapDays(new Period(budget.getFirstDay(), budget.getLastDay()));
 
         return days;
 
-    }
-
-    private long overlapDays(Period period, Budget budget) {
-
-        if (period.getEnd().isBefore(budget.getFirstDay())) {
-            return 0;
-        }
-
-        if (period.getStart().isAfter(budget.getLastDay())) {
-            return 0;
-        }
-
-        LocalDate overlapStart = period.getStart().isBefore(budget.getFirstDay())
-                ? budget.getFirstDay()
-                : period.getStart();
-
-
-        LocalDate overlapEnd = period.getEnd().isAfter(budget.getLastDay())
-                ? budget.getLastDay()
-                : period.getEnd();
-
-
-        return DAYS.between(overlapStart, overlapEnd) + 1;
     }
 
 }
