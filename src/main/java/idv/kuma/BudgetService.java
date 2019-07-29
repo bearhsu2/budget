@@ -25,9 +25,8 @@ public class BudgetService {
             return 0;
         }
         Budget budget = budgets.get(0);
-        long days = period.overlapDays(new Period(budget.getFirstDay(), budget.getLastDay()));
 
-        return days;
+        return period.overlapDays(budget.toPeriod());
 
     }
 

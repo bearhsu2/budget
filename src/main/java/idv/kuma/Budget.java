@@ -41,4 +41,8 @@ public class Budget {
 
 
     }
+
+    public Period toPeriod() {
+        return new Period(getFirstDay(), getLastDay());
+    }
 }
