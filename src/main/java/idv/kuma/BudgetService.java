@@ -24,13 +24,12 @@ public class BudgetService {
         if (budgets.size() == 0) {
             return 0;
         }
-        Budget budget = budgets.get(0);
 
-        long overlapDays = period.overlapDays(budget.toPeriod());
-
-        double dailyAmount = budget.getDailyAmount();
-
-        return overlapDays * dailyAmount;
+        double totalAmount = 0D;
+        for (Budget budget : budgets) {
+            totalAmount += period.overlapDays(budget.toPeriod()) * budget.getDailyAmount();
+        }
+        return totalAmount;
 
     }
 
