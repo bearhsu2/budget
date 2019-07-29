@@ -134,6 +134,22 @@ public class BudgetServiceTest {
 
     }
 
+
+    @Test
+    public void Illegal_Period() {
+
+        prepareBudgets(
+                new Budget("201903", 31),
+                new Budget("201904", 300),
+                new Budget("201905", 3100)
+        );
+
+        runAndCheck(0,
+                LocalDate.of(2019, 4, 30),
+                LocalDate.of(2019, 4, 1));
+
+    }
+
     private void runAndCheck(int expected, LocalDate start, LocalDate end) {
 
         Assert.assertEquals(expected, budgetService.query(start, end), 0.001);
