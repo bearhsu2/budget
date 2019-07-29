@@ -13,39 +13,24 @@ public class Budget {
         this.amount = amount;
     }
 
-    public String getYearMonth() {
-        return yearMonth;
-    }
 
-    public void setYearMonth(String yearMonth) {
-        this.yearMonth = yearMonth;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-    public LocalDate getFirstDay() {
+    private LocalDate getFirstDay() {
         YearMonth yearMonth = YearMonth.parse(this.yearMonth, DateTimeFormatter.ofPattern("uuuuMM"));
         return yearMonth.atDay(1);
     }
 
-    public LocalDate getLastDay() {
+    private LocalDate getLastDay() {
         YearMonth yearMonth = YearMonth.parse(this.yearMonth, DateTimeFormatter.ofPattern("uuuuMM"));
         return yearMonth.atEndOfMonth();
 
 
     }
 
-    public Period toPeriod() {
+    private Period toPeriod() {
         return new Period(getFirstDay(), getLastDay());
     }
 
-    public int getNumberOfDays() {
+    private int getNumberOfDays() {
         YearMonth yearMonth = YearMonth.parse(this.yearMonth, DateTimeFormatter.ofPattern("uuuuMM"));
         return yearMonth.lengthOfMonth();
     }
