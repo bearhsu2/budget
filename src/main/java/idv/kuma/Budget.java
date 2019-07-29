@@ -2,7 +2,6 @@ package idv.kuma;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
-import java.time.chrono.ChronoLocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Budget {
@@ -49,5 +48,9 @@ public class Budget {
     public int getNumberOfDays() {
         YearMonth yearMonth = YearMonth.parse(this.yearMonth, DateTimeFormatter.ofPattern("uuuuMM"));
         return yearMonth.lengthOfMonth();
+    }
+
+    int getDailyAmount() {
+        return amount / getNumberOfDays();
     }
 }
