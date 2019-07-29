@@ -24,7 +24,7 @@ public class BudgetService {
 
         List<Budget> budgets = this.budgetRepo.getAll();
 
-        if (budgets.size() == 0) {
+        if (budgets.isEmpty()) {
             return 0;
         }
 
