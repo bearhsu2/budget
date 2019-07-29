@@ -95,6 +95,17 @@ public class BudgetServiceTest {
 
     }
 
+    @Test
+    public void Period_Overlap_Budget_First_And_Last_Day() {
+
+        prepareBudgets(new Budget("201904", 30));
+
+        runAndCheck(30,
+                LocalDate.of(2019, 3, 31),
+                LocalDate.of(2019, 5, 1));
+
+    }
+
     private void runAndCheck(int expected, LocalDate start, LocalDate end) {
 
         Assert.assertEquals(expected, budgetService.query(start, end), 0.001);
