@@ -53,4 +53,8 @@ public class Budget {
     double getDailyAmount() {
         return amount / (double) getNumberOfDays();
     }
+
+    double getTotalAmount(Period period) {
+        return period.overlapDays(toPeriod()) * getDailyAmount();
+    }
 }

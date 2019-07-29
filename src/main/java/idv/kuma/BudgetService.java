@@ -18,7 +18,6 @@ public class BudgetService {
     public double query(LocalDate start, LocalDate end) {
         Period period = new Period(start, end);
 
-
         List<Budget> budgets = this.budgetRepo.getAll();
 
         if (budgets.size() == 0) {
@@ -27,7 +26,9 @@ public class BudgetService {
 
         double totalAmount = 0D;
         for (Budget budget : budgets) {
-            totalAmount += period.overlapDays(budget.toPeriod()) * budget.getDailyAmount();
+
+            totalAmount += budget.getTotalAmount(period);
+
         }
         return totalAmount;
 
