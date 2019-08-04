@@ -1,6 +1,7 @@
 package idv.kuma;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -17,26 +18,43 @@ import static org.mockito.Mockito.when;
 public class BudgetServiceTest {
 
 
+    private BudgetRepo budgetRepo;
+    private BudgetService budgetService;
+
+    @Before
+    public void setUp() throws Exception {
+        budgetRepo = mock(BudgetRepo.class);
+        budgetService = new BudgetService(budgetRepo);
+    }
+
     @Test
     public void period_in_budget() {
 
 
-        BudgetRepo budgetRepo = mock(BudgetRepo.class);
-        when(budgetRepo.getAll()).thenReturn(Arrays.asList(
+        prepareBudgets(
                 new Budget("201904", 30)
-        ));
+        );
+
+        runAndCheck(1D,
+                LocalDate.of(2019, 04, 01),
+                LocalDate.of(2019, 04, 01));
 
 
-        BudgetService budgetService = new BudgetService(budgetRepo);
+    }
 
+    private void runAndCheck(double expected, LocalDate start, LocalDate end) {
         double result = budgetService.query(
-                LocalDate.of(2019,04,01),
-                LocalDate.of(2019,04,01)
+                start,
+                end
 
         );
 
-        Assert.assertEquals(1D, result, 0.001);
+        Assert.assertEquals(expected, result, 0.001);
+    }
 
-
+    private void prepareBudgets(Budget... budgets) {
+        when(budgetRepo.getAll()).thenReturn(Arrays.asList(
+              budgets
+        ));
     }
 }

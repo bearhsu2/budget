@@ -20,7 +20,9 @@ public class BudgetService {
         Budget budget = budgets.get(0);
 
 
-        return budget.getDailyAmount();
+        double amount =  budget.getDailyAmount();
+
+        return amount;
 
 
     }
