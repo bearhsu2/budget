@@ -17,14 +17,23 @@ public class BudgetService {
 
     public double query(LocalDate start, LocalDate end) {
 
+        Period period = new Period(start, end);
+
         List<Budget> budgets = budgetRepo.getAll();
 
         Budget budget = budgets.get(0);
 
 
-        long days = DAYS.between(start, end) + 1;
+        long days;
 
-        double dailyAmount =  budget.getDailyAmount();
+        if (period.getStart().isBefore(budget.getFirstDay())) {
+            days = DAYS.between(budget.getFirstDay(), period.getEnd()) + 1;
+        } else {
+            days = DAYS.between(period.getStart(), period.getEnd()) + 1;
+        }
+
+
+        double dailyAmount = budget.getDailyAmount();
 
 
         return days * dailyAmount;

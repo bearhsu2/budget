@@ -1,11 +1,12 @@
 package idv.kuma;
 
+import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 
 public class Budget {
 
-    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuuMM");;
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuuMM");
 
     private String yearMonth;
     private int amount;
@@ -35,5 +36,11 @@ public class Budget {
 
         YearMonth yearMonth = YearMonth.parse(this.yearMonth, formatter);
         return getAmount() / yearMonth.lengthOfMonth();
+    }
+
+    public LocalDate getFirstDay() {
+
+        YearMonth yearMonth = YearMonth.parse(this.yearMonth, formatter);
+        return yearMonth.atDay(1);
     }
 }

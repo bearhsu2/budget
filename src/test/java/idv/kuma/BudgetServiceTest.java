@@ -41,6 +41,20 @@ public class BudgetServiceTest {
 
     }
 
+    @Test
+    public void period_start_before_budget_first_day() {
+
+
+        prepareBudgets(
+                new Budget("201904", 30)
+        );
+
+        runAndCheck(1D,
+                LocalDate.of(2019, 03, 30),
+                LocalDate.of(2019, 04, 01));
+
+    }
+
 
 
     private void runAndCheck(double expected, LocalDate start, LocalDate end) {
