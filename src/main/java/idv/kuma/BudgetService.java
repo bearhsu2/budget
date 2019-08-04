@@ -21,9 +21,7 @@ public class BudgetService {
 
         Period period = new Period(start, end);
 
-        List<Budget> budgets = budgetRepo.getAll();
-
-        return budgets
+        return budgetRepo.getAll()
                 .stream()
                 .mapToDouble(budget -> budget.getEffectiveAmount(period))
                 .sum();
