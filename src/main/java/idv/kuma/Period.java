@@ -6,8 +6,8 @@ import static java.time.temporal.ChronoUnit.DAYS;
 
 public class Period {
 
-    LocalDate start;
-    LocalDate end;
+    private LocalDate start;
+    private LocalDate end;
 
     public Period(LocalDate start, LocalDate end) {
         this.start = start;
