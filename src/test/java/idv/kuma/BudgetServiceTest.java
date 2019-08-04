@@ -131,6 +131,22 @@ public class BudgetServiceTest {
     }
 
 
+
+    @Test
+    public void illegal_qeury() {
+
+
+        prepareBudgets(
+                new Budget("201904", 30)
+        );
+
+        runAndCheck(0D,
+                LocalDate.of(2019, 4, 5),
+                LocalDate.of(2019, 4, 2));
+
+    }
+
+
     private void runAndCheck(double expected, LocalDate start, LocalDate end) {
         double result = budgetService.query(
                 start,

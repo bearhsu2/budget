@@ -15,6 +15,10 @@ public class BudgetService {
 
     public double query(LocalDate start, LocalDate end) {
 
+        if (start.isAfter(end)) {
+            return 0D;
+        }
+
         Period period = new Period(start, end);
 
         List<Budget> budgets = budgetRepo.getAll();
@@ -22,11 +26,9 @@ public class BudgetService {
         double total = 0D;
         for (Budget budget : budgets) {
 
-
             long days = period.getEffectiveDays(budget.toPeriod());
 
             double dailyAmount = budget.getDailyAmount();
-
 
             total += days * dailyAmount;
         }
