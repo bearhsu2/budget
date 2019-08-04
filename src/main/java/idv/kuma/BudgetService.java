@@ -22,7 +22,7 @@ public class BudgetService {
         Budget budget = budgets.get(0);
 
 
-        long days = period.getEffectiveDays(budget);
+        long days = period.getEffectiveDays(budget.toPeriod());
 
         double dailyAmount = budget.getDailyAmount();
 

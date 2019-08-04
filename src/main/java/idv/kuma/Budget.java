@@ -49,4 +49,8 @@ public class Budget {
         YearMonth yearMonth = YearMonth.parse(this.yearMonth, formatter);
         return yearMonth.atEndOfMonth();
     }
+
+    public Period toPeriod() {
+        return new Period(getFirstDay(), getLastDay());
+    }
 }
