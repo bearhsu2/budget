@@ -3,8 +3,6 @@ package idv.kuma;
 import java.time.LocalDate;
 import java.util.List;
 
-import static java.time.temporal.ChronoUnit.DAYS;
-
 
 public class BudgetService {
 
@@ -24,14 +22,7 @@ public class BudgetService {
         Budget budget = budgets.get(0);
 
 
-        long days;
-
-        if (period.getStart().isBefore(budget.getFirstDay())) {
-            days = DAYS.between(budget.getFirstDay(), period.getEnd()) + 1;
-        } else {
-            days = DAYS.between(period.getStart(), period.getEnd()) + 1;
-        }
-
+        long days = period.getEffectiveDays(budget);
 
         double dailyAmount = budget.getDailyAmount();
 
