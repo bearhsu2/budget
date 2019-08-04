@@ -33,9 +33,14 @@ public class Period {
     long getEffectiveDays(Budget budget) {
 
         long days;
-        if (getStart().isBefore(budget.getFirstDay())) {
-            days = DAYS.between(budget.getFirstDay(), getEnd()) + 1;
-        } else {
+        if (start.isBefore(budget.getFirstDay())) {
+            
+            days = DAYS.between(budget.getFirstDay(), end) + 1;
+
+        } else if (end.isAfter(budget.getLastDay())){
+
+            days = DAYS.between(start, budget.getLastDay()) + 1;
+        }else {
             days = DAYS.between(getStart(), getEnd()) + 1;
         }
         return days;

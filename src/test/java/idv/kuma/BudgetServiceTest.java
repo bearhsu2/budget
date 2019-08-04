@@ -55,6 +55,20 @@ public class BudgetServiceTest {
 
     }
 
+    @Test
+    public void period_end_after_budget_last_day() {
+
+
+        prepareBudgets(
+                new Budget("201904", 30)
+        );
+
+        runAndCheck(1D,
+                LocalDate.of(2019, 04, 30),
+                LocalDate.of(2019, 05, 01));
+
+    }
+
 
 
     private void runAndCheck(double expected, LocalDate start, LocalDate end) {
