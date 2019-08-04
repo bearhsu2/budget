@@ -32,6 +32,10 @@ public class Period {
 
     long getEffectiveDays(Budget budget) {
 
+        if (end.isBefore(budget.getFirstDay())) {
+            return 0;
+        }
+
         LocalDate realStart = start.isBefore(budget.getFirstDay())
                 ? budget.getFirstDay()
                 : start;
@@ -39,7 +43,6 @@ public class Period {
         LocalDate realEnd = end.isAfter(budget.getLastDay())
                 ? budget.getLastDay()
                 : end;
-
 
         return DAYS.between(realStart, realEnd) + 1;
     }

@@ -70,6 +70,21 @@ public class BudgetServiceTest {
     }
 
 
+    @Test
+    public void period_no_overlap_before_budget_first_day() {
+
+
+        prepareBudgets(
+                new Budget("201904", 30)
+        );
+
+        runAndCheck(0D,
+                LocalDate.of(2019, 03, 30),
+                LocalDate.of(2019, 03, 30));
+
+    }
+
+
 
     private void runAndCheck(double expected, LocalDate start, LocalDate end) {
         double result = budgetService.query(
