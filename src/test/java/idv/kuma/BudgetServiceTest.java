@@ -35,12 +35,13 @@ public class BudgetServiceTest {
                 new Budget("201904", 30)
         );
 
-        runAndCheck(1D,
+        runAndCheck(5D,
                 LocalDate.of(2019, 04, 01),
-                LocalDate.of(2019, 04, 01));
-
+                LocalDate.of(2019, 04, 05));
 
     }
+
+
 
     private void runAndCheck(double expected, LocalDate start, LocalDate end) {
         double result = budgetService.query(
