@@ -79,11 +79,24 @@ public class BudgetServiceTest {
         );
 
         runAndCheck(0D,
-                LocalDate.of(2019, 03, 30),
+                LocalDate.of(2019, 03, 29),
                 LocalDate.of(2019, 03, 30));
 
     }
 
+    @Test
+    public void period_no_overlap_after_budget_last_day() {
+
+
+        prepareBudgets(
+                new Budget("201904", 30)
+        );
+
+        runAndCheck(0D,
+                LocalDate.of(2019, 5, 11),
+                LocalDate.of(2019, 5, 15));
+
+    }
 
 
     private void runAndCheck(double expected, LocalDate start, LocalDate end) {
@@ -98,7 +111,7 @@ public class BudgetServiceTest {
 
     private void prepareBudgets(Budget... budgets) {
         when(budgetRepo.getAll()).thenReturn(Arrays.asList(
-              budgets
+                budgets
         ));
     }
 }

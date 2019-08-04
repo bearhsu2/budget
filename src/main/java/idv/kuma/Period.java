@@ -32,7 +32,7 @@ public class Period {
 
     long getEffectiveDays(Period another) {
 
-        if (end.isBefore(another.start)) {
+        if (end.isBefore(another.start) || start.isAfter(another.end)) {
             return 0;
         }
 
