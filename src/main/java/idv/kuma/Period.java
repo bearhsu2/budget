@@ -30,7 +30,7 @@ public class Period {
         this.end = end;
     }
 
-    long getEffectiveDays(Period another) {
+    long getOverlappingDays(Period another) {
 
         if (end.isBefore(another.start) || start.isAfter(another.end)) {
             return 0;

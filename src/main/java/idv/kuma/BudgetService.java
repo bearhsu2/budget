@@ -23,17 +23,10 @@ public class BudgetService {
 
         List<Budget> budgets = budgetRepo.getAll();
 
-        double total = 0D;
-        for (Budget budget : budgets) {
-
-            long days = period.getEffectiveDays(budget.toPeriod());
-
-            double dailyAmount = budget.getDailyAmount();
-
-            total += days * dailyAmount;
-        }
-
-        return total;
+        return budgets
+                .stream()
+                .mapToDouble(budget -> budget.getEffectiveAmount(period))
+                .sum();
 
 
     }

@@ -2,7 +2,6 @@ package idv.kuma;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
-import java.time.chrono.ChronoLocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Budget {
@@ -50,7 +49,11 @@ public class Budget {
         return yearMonth.atEndOfMonth();
     }
 
-    public Period toPeriod() {
+    private Period toPeriod() {
         return new Period(getFirstDay(), getLastDay());
+    }
+
+    double getEffectiveAmount(Period period) {
+        return period.getOverlappingDays(toPeriod()) * getDailyAmount();
     }
 }
