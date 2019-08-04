@@ -19,15 +19,19 @@ public class BudgetService {
 
         List<Budget> budgets = budgetRepo.getAll();
 
-        Budget budget = budgets.get(0);
+        double total = 0D;
+        for (Budget budget : budgets) {
 
 
-        long days = period.getEffectiveDays(budget.toPeriod());
+            long days = period.getEffectiveDays(budget.toPeriod());
 
-        double dailyAmount = budget.getDailyAmount();
+            double dailyAmount = budget.getDailyAmount();
 
 
-        return days * dailyAmount;
+            total += days * dailyAmount;
+        }
+
+        return total;
 
 
     }

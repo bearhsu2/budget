@@ -99,6 +99,38 @@ public class BudgetServiceTest {
     }
 
 
+    @Test
+    public void daily_amount_more_than_1() {
+
+
+        prepareBudgets(
+                new Budget("201904", 300)
+        );
+
+        runAndCheck(300,
+                LocalDate.of(2019, 3, 29),
+                LocalDate.of(2019, 5, 3));
+
+    }
+
+
+    @Test
+    public void more_than_one_budgets() {
+
+
+        prepareBudgets(
+                new Budget("201903", 31),
+                new Budget("201904", 300),
+                new Budget("201905", 31000)
+        );
+
+        runAndCheck(2 + 300 + 5000,
+                LocalDate.of(2019, 3, 30),
+                LocalDate.of(2019, 5, 5));
+
+    }
+
+
     private void runAndCheck(double expected, LocalDate start, LocalDate end) {
         double result = budgetService.query(
                 start,
