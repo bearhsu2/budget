@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Budget {
 
+    private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("uuuuMM");
     private String yearMonth;
     private int amount;
 
@@ -33,13 +34,14 @@ public class Budget {
     }
 
     public LocalDate getFirstDay() {
-        YearMonth ym = YearMonth.parse(this.yearMonth, DateTimeFormatter.ofPattern("uuuuMM"));
+
+        YearMonth ym = YearMonth.parse(this.yearMonth, dateTimeFormatter);
         return ym.atDay(1);
 
     }
 
     public LocalDate getLastDay() {
-        YearMonth ym = YearMonth.parse(this.yearMonth, DateTimeFormatter.ofPattern("uuuuMM"));
+        YearMonth ym = YearMonth.parse(this.yearMonth, dateTimeFormatter);
         return ym.atEndOfMonth();
 
     }
@@ -47,5 +49,9 @@ public class Budget {
     public Period toPeriod() {
 
         return new Period(getFirstDay(), getLastDay());
+    }
+
+    double getDailyAmount() {
+        return (amount + 0D) / YearMonth.parse(yearMonth, dateTimeFormatter).lengthOfMonth();
     }
 }
