@@ -18,17 +18,18 @@ public class BudgetService {
 
     public double query(LocalDate start, LocalDate end) {
 
+        Period period = new Period(start, end);
+
 
         List<Budget> budgets = budgetRepo.getAll();
 
         Budget budget = budgets.get(0);
 
         long days;
-        if (end.isBefore(budget.getFirstDay())) {
+        if (period.getEnd().isBefore(budget.getFirstDay())) {
             days = 0L;
         } else {
-
-            days = DAYS.between(start, end) + 1;
+            days = DAYS.between(period.getStart(), period.getEnd()) + 1;
         }
 
 

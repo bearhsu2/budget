@@ -1,0 +1,22 @@
+package idv.kuma;
+
+import java.time.LocalDate;
+
+public class Period {
+    private LocalDate start;
+    private LocalDate end;
+
+    public Period(LocalDate start, LocalDate end) {
+
+        this.start = start;
+        this.end = end;
+    }
+
+    public LocalDate getStart() {
+        return start;
+    }
+
+    public LocalDate getEnd() {
+        return end;
+    }
+}
