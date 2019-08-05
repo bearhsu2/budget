@@ -24,14 +24,17 @@ public class Period {
 
     long overlappingDays(Period another) {
 
-        long days;
-        if (end.isBefore(another.getStart())) {
-            days = 0L;
-        } else if (start.isAfter(another.getEnd())) {
-            days = 0L;
-        } else {
-            days = DAYS.between(start, end) + 1;
+
+        if (end.isBefore(another.getStart()) || start.isAfter(another.getEnd())) {
+            return 0L;
         }
+
+        LocalDate realStart = start.isBefore(another.start)
+                ? another.start
+                : start;
+
+        long days = DAYS.between(realStart, end) + 1;
+
         return days;
     }
 }

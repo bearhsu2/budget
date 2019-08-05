@@ -58,6 +58,18 @@ public class BudgetServiceTest {
 
     }
 
+
+    @Test
+    public void start_before_budget_first_day() {
+
+        prepareBudgetRepo(new Budget("201904", 30));
+
+        runAndCheck(3D,
+                LocalDate.of(2019, 3, 31),
+                LocalDate.of(2019, 4, 3));
+
+    }
+
     private void runAndCheck(double expected, LocalDate start, LocalDate end) {
         Assert.assertEquals(expected, budgetService.query(start, end), 0.001);
     }
