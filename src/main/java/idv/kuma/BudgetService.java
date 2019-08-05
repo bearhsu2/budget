@@ -21,11 +21,10 @@ public class BudgetService {
 
         List<Budget> budgets = budgetRepo.getAll();
 
-        double total = 0D;
-        for (Budget budget : budgets) {
-            total += period.overlappingDays(budget.toPeriod()) * budget.getDailyAmount();
-        }
-        return total;
+        return budgets
+                .stream()
+                .mapToDouble(budget -> budget.getEffectiveAmount(period))
+                .sum();
     }
 
 }

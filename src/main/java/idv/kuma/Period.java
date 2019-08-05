@@ -22,20 +22,20 @@ public class Period {
         return end;
     }
 
-    long overlappingDays(Period another) {
+    long overlappingDays(Period period) {
 
 
-        if (end.isBefore(another.getStart()) || start.isAfter(another.getEnd())) {
+        if (period.end.isBefore(getStart()) || period.start.isAfter(getEnd())) {
             return 0L;
         }
 
-        LocalDate realStart = start.isBefore(another.start)
-                ? another.start
-                : start;
+        LocalDate realStart = period.start.isBefore(this.start)
+                ? this.start
+                : period.start;
 
-        LocalDate realEnd = end.isAfter(another.end)
-                ? another.end
-                : end;
+        LocalDate realEnd = period.end.isAfter(this.end)
+                ? this.end
+                : period.end;
 
         long days = DAYS.between(realStart, realEnd) + 1;
 

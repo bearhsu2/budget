@@ -54,4 +54,8 @@ public class Budget {
     double getDailyAmount() {
         return (amount + 0D) / YearMonth.parse(yearMonth, dateTimeFormatter).lengthOfMonth();
     }
+
+    double getEffectiveAmount(Period period) {
+        return toPeriod().overlappingDays(period) * getDailyAmount();
+    }
 }
