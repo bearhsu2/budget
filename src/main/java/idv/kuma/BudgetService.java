@@ -21,14 +21,19 @@ public class BudgetService {
 
         List<Budget> budgets = budgetRepo.getAll();
 
-        Budget budget = budgets.get(0);
+        double total = 0D;
 
-        double dailyAmount = budget.getDailyAmount();
+        for (Budget budget : budgets) {
 
-        long overlappingDays = period.overlappingDays(budget.toPeriod());
+            double dailyAmount = budget.getDailyAmount();
+
+            long overlappingDays = period.overlappingDays(budget.toPeriod());
+
+            total += overlappingDays * dailyAmount;
+        }
 
 
-        return overlappingDays * dailyAmount;
+        return total;
     }
 
 }
