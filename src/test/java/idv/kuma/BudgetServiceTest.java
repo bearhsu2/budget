@@ -30,8 +30,20 @@ public class BudgetServiceTest {
 
         prepareBudgetRepo(new Budget("201904", 30));
 
+        runAndCheck(1D,
+                LocalDate.of(2019, 4, 1),
+                LocalDate.of(2019, 4, 1));
 
-        runAndCheck(1D, LocalDate.of(2019, 4, 1), LocalDate.of(2019, 4, 1));
+    }
+
+    @Test
+    public void no_overlapping_before_budget_first_day() {
+
+        prepareBudgetRepo(new Budget("201904", 30));
+
+        runAndCheck(0D,
+                LocalDate.of(2019, 3, 30),
+                LocalDate.of(2019, 3, 30));
 
     }
 
