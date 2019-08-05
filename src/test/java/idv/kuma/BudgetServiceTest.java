@@ -47,6 +47,17 @@ public class BudgetServiceTest {
 
     }
 
+    @Test
+    public void no_overlapping_after_budget_last_dday() {
+
+        prepareBudgetRepo(new Budget("201904", 30));
+
+        runAndCheck(0D,
+                LocalDate.of(2019, 5, 1),
+                LocalDate.of(2019, 5, 1));
+
+    }
+
     private void runAndCheck(double expected, LocalDate start, LocalDate end) {
         Assert.assertEquals(expected, budgetService.query(start, end), 0.001);
     }

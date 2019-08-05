@@ -2,7 +2,6 @@ package idv.kuma;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
-import java.time.chrono.ChronoLocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Budget {
@@ -33,8 +32,15 @@ public class Budget {
         this.amount = amount;
     }
 
-    public ChronoLocalDate getFirstDay() {
+    public LocalDate getFirstDay() {
         YearMonth ym = YearMonth.parse(this.yearMonth, DateTimeFormatter.ofPattern("uuuuMM"));
         return ym.atDay(1);
+
+    }
+
+    public LocalDate getLastDay() {
+        YearMonth ym = YearMonth.parse(this.yearMonth, DateTimeFormatter.ofPattern("uuuuMM"));
+        return ym.atEndOfMonth();
+
     }
 }

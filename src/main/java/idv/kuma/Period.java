@@ -24,7 +24,9 @@ public class Period {
 
     long overlappingDays(Budget budget) {
         long days;
-        if (getEnd().isBefore(budget.getFirstDay())) {
+        if (end.isBefore(budget.getFirstDay())) {
+            days = 0L;
+        } else if (start.isAfter(budget.getLastDay())) {
             days = 0L;
         } else {
             days = DAYS.between(getStart(), getEnd()) + 1;
