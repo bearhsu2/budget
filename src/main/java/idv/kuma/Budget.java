@@ -43,4 +43,9 @@ public class Budget {
         return ym.atEndOfMonth();
 
     }
+
+    public Period toPeriod() {
+
+        return new Period(getFirstDay(), getLastDay());
+    }
 }

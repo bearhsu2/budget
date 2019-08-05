@@ -22,14 +22,15 @@ public class Period {
         return end;
     }
 
-    long overlappingDays(Budget budget) {
+    long overlappingDays(Period another) {
+
         long days;
-        if (end.isBefore(budget.getFirstDay())) {
+        if (end.isBefore(another.getStart())) {
             days = 0L;
-        } else if (start.isAfter(budget.getLastDay())) {
+        } else if (start.isAfter(another.getEnd())) {
             days = 0L;
         } else {
-            days = DAYS.between(getStart(), getEnd()) + 1;
+            days = DAYS.between(start, end) + 1;
         }
         return days;
     }

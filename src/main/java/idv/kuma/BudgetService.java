@@ -23,7 +23,7 @@ public class BudgetService {
 
         Budget budget = budgets.get(0);
 
-        long days = period.overlappingDays(budget);
+        long days = period.overlappingDays(budget.toPeriod());
 
 
         return days;
