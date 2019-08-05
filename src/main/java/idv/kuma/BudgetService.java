@@ -3,8 +3,6 @@ package idv.kuma;
 import java.time.LocalDate;
 import java.util.List;
 
-import static java.time.temporal.ChronoUnit.DAYS;
-
 
 public class BudgetService {
 
@@ -25,14 +23,10 @@ public class BudgetService {
 
         Budget budget = budgets.get(0);
 
-        long days;
-        if (period.getEnd().isBefore(budget.getFirstDay())) {
-            days = 0L;
-        } else {
-            days = DAYS.between(period.getStart(), period.getEnd()) + 1;
-        }
+        long days = period.overlappingDays(budget);
 
 
         return days;
     }
+
 }
