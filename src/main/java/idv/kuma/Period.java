@@ -33,7 +33,6 @@ public class Period {
                 ? another.start
                 : start;
 
-
         LocalDate realEnd = end.isAfter(another.end)
                 ? another.end
                 : end;

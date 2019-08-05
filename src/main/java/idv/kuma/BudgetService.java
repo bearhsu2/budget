@@ -1,6 +1,8 @@
 package idv.kuma;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
@@ -23,10 +25,12 @@ public class BudgetService {
 
         Budget budget = budgets.get(0);
 
-        long days = period.overlappingDays(budget.toPeriod());
+        double dailyAmount = (budget.getAmount() + 0D) / YearMonth.parse(budget.getYearMonth(), DateTimeFormatter.ofPattern("uuuuMM")).lengthOfMonth();
+
+        long overlappingDays = period.overlappingDays(budget.toPeriod());
 
 
-        return days;
+        return overlappingDays * dailyAmount;
     }
 
 }
