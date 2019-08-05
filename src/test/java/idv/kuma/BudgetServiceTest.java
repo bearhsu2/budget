@@ -70,6 +70,17 @@ public class BudgetServiceTest {
 
     }
 
+    @Test
+    public void end_after_budget_last_day() {
+
+        prepareBudgetRepo(new Budget("201904", 30));
+
+        runAndCheck(1D,
+                LocalDate.of(2019, 4, 30),
+                LocalDate.of(2019, 5, 3));
+
+    }
+
     private void runAndCheck(double expected, LocalDate start, LocalDate end) {
         Assert.assertEquals(expected, budgetService.query(start, end), 0.001);
     }

@@ -33,7 +33,12 @@ public class Period {
                 ? another.start
                 : start;
 
-        long days = DAYS.between(realStart, end) + 1;
+
+        LocalDate realEnd = end.isAfter(another.end)
+                ? another.end
+                : end;
+
+        long days = DAYS.between(realStart, realEnd) + 1;
 
         return days;
     }
